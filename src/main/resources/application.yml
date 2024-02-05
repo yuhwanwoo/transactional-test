@@ -1,0 +1,33 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:43306/lock-stock
+    username: root
+    password: root
+    hikari:
+      maximum-pool-size: 40
+
+logging:
+  level:
+    org:
+      hibernate:
+        resource:
+          transaction: DEBUG
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
+      springframework:
+        transaction:
+          interceptor: TRACE
+        jdbc:
+          datasource:
+            org.springframework.jdbc.datasource.DataSourceTransactionManager: TRACE
+        orm:
+          jpa:
+            org.springframework.orm.jpa.JpaTransactionManager: DEBUG

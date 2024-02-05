@@ -22,6 +22,10 @@ public class Product {
         this.price = price;
     }
 
+    protected Product() {
+
+    }
+
     public static Product of(Long id, String name, BigDecimal price) {
         return new Product(id, name, price);
     }
