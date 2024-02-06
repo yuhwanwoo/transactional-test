@@ -1,6 +1,5 @@
 package com.example.transactionaltest.application;
 
-import com.example.transactionaltest.domain.ProductRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,5 +19,19 @@ public class TransactionalTest {
     void basic() {
         productProcessor.create(1L, "상품명", BigDecimal.TEN);
     }
+
+    @DisplayName("기본 throw 롤백")
+    @Test
+    void basic_throw() {
+        productProcessor.createThrow(1L, "상품명", BigDecimal.TEN);
+    }
+
+    @DisplayName("기본 throw and catch")
+    @Test
+    void basic_throw_and_catch() {
+        productProcessor.createThrowAndCatch(1L, "상품명", BigDecimal.TEN);
+    }
+
+
 
 }
