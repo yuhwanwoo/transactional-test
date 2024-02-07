@@ -12,7 +12,7 @@ public class TransactionalTest {
 
 
     @Autowired
-    private  ProductProcessor productProcessor;
+    private ProductProcessor productProcessor;
 
     @DisplayName("기본 사용")
     @Test
@@ -32,6 +32,9 @@ public class TransactionalTest {
         productProcessor.createThrowAndCatch(1L, "상품명", BigDecimal.TEN);
     }
 
-
-
+    @DisplayName("두 개의 서비스 호출")
+    @Test
+    void basic_with_order_item() {
+        productProcessor.createWithOrderItem(1L, "상품명", BigDecimal.TEN);
+    }
 }

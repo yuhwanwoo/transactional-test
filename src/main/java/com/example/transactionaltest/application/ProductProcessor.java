@@ -11,9 +11,11 @@ import java.math.BigDecimal;
 @Component
 public class ProductProcessor {
     private final ProductRepository productRepository;
+    private final OrderItemProcessor orderItemProcessor;
 
-    public ProductProcessor(ProductRepository productRepository) {
+    public ProductProcessor(ProductRepository productRepository, OrderItemProcessor orderItemProcessor) {
         this.productRepository = productRepository;
+        this.orderItemProcessor = orderItemProcessor;
     }
 
     @Transactional
@@ -39,4 +41,12 @@ public class ProductProcessor {
             System.out.println("Product Exception");
         }
     }
+
+    @Transactional
+    public void createWithOrderItem(Long id, String name, BigDecimal price) {
+        Product product = Product.of(id, name, price);
+        productRepository.save(product);
+        orderItemProcessor.create(1L, 1L, "주문아이템1", BigDecimal.TEN);
+    }
+
 }

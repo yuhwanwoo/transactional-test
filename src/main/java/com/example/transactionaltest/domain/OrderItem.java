@@ -18,4 +18,18 @@ public class OrderItem {
     @Column(length = 20)
     private String name;
     private BigDecimal price;
+
+    protected OrderItem() {
+    }
+
+    public OrderItem(Long id, Long quantity, String name, BigDecimal price) {
+        this.id = id;
+        this.quantity = quantity;
+        this.name = name;
+        this.price = price;
+    }
+
+    public static OrderItem of(Long id, Long quantity, String name, BigDecimal price) {
+        return new OrderItem(id, quantity, name, price);
+    }
 }
