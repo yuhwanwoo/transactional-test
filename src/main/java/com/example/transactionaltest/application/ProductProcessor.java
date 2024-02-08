@@ -49,4 +49,12 @@ public class ProductProcessor {
         orderItemProcessor.create(1L, 1L, "주문아이템1", BigDecimal.TEN);
     }
 
+
+    @Transactional
+    public void createWithOrderItemAndCatch(Long id, String name, BigDecimal price) {
+        Product product = Product.of(id, name, price);
+        productRepository.save(product);
+        orderItemProcessor.createForCatch(1L, 1L, "주문아이템1", BigDecimal.TEN);
+    }
+
 }

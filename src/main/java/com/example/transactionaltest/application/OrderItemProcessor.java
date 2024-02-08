@@ -20,4 +20,15 @@ public class OrderItemProcessor {
         OrderItem orderItem = OrderItem.of(id, quantity, name, price);
         orderItemRepository.save(orderItem);
     }
+
+    @Transactional
+    public void createForCatch(Long id, Long quantity, String name, BigDecimal price) {
+        OrderItem orderItem = OrderItem.of(id, quantity, name, price);
+        orderItemRepository.save(orderItem);
+        try {
+            throw new RuntimeException();
+        } catch (RuntimeException e) {
+
+        }
+    }
 }

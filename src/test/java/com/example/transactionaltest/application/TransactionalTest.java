@@ -32,9 +32,15 @@ public class TransactionalTest {
         productProcessor.createThrowAndCatch(1L, "상품명", BigDecimal.TEN);
     }
 
-    @DisplayName("두 개의 서비스 호출")
+    @DisplayName("두 개의 서비스 호출 성공")
     @Test
     void basic_with_order_item() {
         productProcessor.createWithOrderItem(1L, "상품명", BigDecimal.TEN);
+    }
+
+    @DisplayName("다른 서비스 호출의 catch")
+    @Test
+    void with_order_item_for_catch() {
+        productProcessor.createWithOrderItemAndCatch(1L, "상품명", BigDecimal.TEN);
     }
 }
