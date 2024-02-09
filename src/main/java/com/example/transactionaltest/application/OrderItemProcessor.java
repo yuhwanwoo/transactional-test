@@ -28,7 +28,13 @@ public class OrderItemProcessor {
         try {
             throw new RuntimeException();
         } catch (RuntimeException e) {
-
+            System.out.println("Catch");
         }
+    }
+
+    public void createAndThrow(Long id, Long quantity, String name, BigDecimal price) {
+        OrderItem orderItem = OrderItem.of(id, quantity, name, price);
+        orderItemRepository.save(orderItem);
+        throw new RuntimeException();
     }
 }

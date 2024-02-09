@@ -57,4 +57,15 @@ public class ProductProcessor {
         orderItemProcessor.createForCatch(1L, 1L, "주문아이템1", BigDecimal.TEN);
     }
 
+    @Transactional
+    public void createWithOrderItemThrowAndCatchWithoutTransactional(Long id, String name, BigDecimal price) {
+        Product product = Product.of(id, name, price);
+        productRepository.save(product);
+        try {
+            orderItemProcessor.createAndThrow(1L, 1L, "주문아이템1", BigDecimal.TEN);
+        } catch (RuntimeException e) {
+            System.out.println("catch");
+        }
+    }
+
 }

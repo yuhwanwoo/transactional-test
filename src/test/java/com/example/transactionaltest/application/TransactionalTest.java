@@ -43,4 +43,10 @@ public class TransactionalTest {
     void with_order_item_for_catch() {
         productProcessor.createWithOrderItemAndCatch(1L, "상품명", BigDecimal.TEN);
     }
+
+    @DisplayName("두 번째 서비스 Transaction 없음")
+    @Test
+    void with_child_method_without_transactional() {
+        productProcessor.createWithOrderItemThrowAndCatchWithoutTransactional(1L, "상품명", BigDecimal.TEN);
+    }
 }
