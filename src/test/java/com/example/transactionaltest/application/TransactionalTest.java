@@ -49,4 +49,10 @@ public class TransactionalTest {
     void with_child_method_without_transactional() {
         productProcessor.createWithOrderItemThrowAndCatchWithoutTransactional(1L, "상품명", BigDecimal.TEN);
     }
+
+    @DisplayName("")
+    @Test
+    void parentMethodWithoutTransactionalAndInnerCall() {
+        productProcessor.createAndInnerCallWithOutTransactional(1L, "상품명", BigDecimal.TEN);
+    }
 }

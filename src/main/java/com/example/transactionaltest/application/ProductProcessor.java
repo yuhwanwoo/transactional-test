@@ -68,4 +68,14 @@ public class ProductProcessor {
         }
     }
 
+    public void createAndInnerCallWithOutTransactional(Long id, String name, BigDecimal price) {
+        Product product = Product.of(id, name, price);
+        createProductWithInner(product);
+    }
+
+    @Transactional
+    public void createProductWithInner(Product product) {
+        productRepository.save(product);
+        throw new ProductException();
+    }
 }
