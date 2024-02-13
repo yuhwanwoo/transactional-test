@@ -50,9 +50,15 @@ public class TransactionalTest {
         productProcessor.createWithOrderItemThrowAndCatchWithoutTransactional(1L, "상품명", BigDecimal.TEN);
     }
 
-    @DisplayName("")
+    @DisplayName("self-invocation 발생")
     @Test
     void parentMethodWithoutTransactionalAndInnerCall() {
         productProcessor.createAndInnerCallWithOutTransactional(1L, "상품명", BigDecimal.TEN);
+    }
+
+    @DisplayName("두 번째 메소드가 @Transactional이 있고 예외를 던진 경우")
+    @Test
+    void createWithChildMethodIsRequiredAndTransactional() {
+        productProcessor.createWithChildMethodIsRequiredAndTransactional(1L, "상품명", BigDecimal.TEN);
     }
 }

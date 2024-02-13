@@ -73,9 +73,23 @@ public class ProductProcessor {
         createProductWithInner(product);
     }
 
+    /*
+
+     */
     @Transactional
     public void createProductWithInner(Product product) {
         productRepository.save(product);
         throw new ProductException();
+    }
+
+    @Transactional
+    public void createWithChildMethodIsRequiredAndTransactional(Long id, String name, BigDecimal price) {
+        Product product = Product.of(id, name, price);
+        productRepository.save(product);
+        try {
+            orderItemProcessor.createAndThrowWithTransactional(1L, 1L, "주문아이템1", BigDecimal.TEN);
+        } catch (RuntimeException e) {
+            System.out.println("catch parent");
+        }
     }
 }
