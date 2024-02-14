@@ -4,6 +4,7 @@ import com.example.transactionaltest.domain.OrderItem;
 import com.example.transactionaltest.domain.OrderItemRepository;
 import com.example.transactionaltest.exception.OrderItemException;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
@@ -41,6 +42,13 @@ public class OrderItemProcessor {
 
     @Transactional
     public void createAndThrowWithTransactional(Long id, Long quantity, String name, BigDecimal price) {
+        OrderItem orderItem = OrderItem.of(id, quantity, name, price);
+        orderItemRepository.save(orderItem);
+        throw new OrderItemException();
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void createAndThrowWithTransactionalAndRequires(Long id, Long quantity, String name, BigDecimal price) {
         OrderItem orderItem = OrderItem.of(id, quantity, name, price);
         orderItemRepository.save(orderItem);
         throw new OrderItemException();

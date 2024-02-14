@@ -61,4 +61,10 @@ public class TransactionalTest {
     void createWithChildMethodIsRequiredAndTransactional() {
         productProcessor.createWithChildMethodIsRequiredAndTransactional(1L, "상품명", BigDecimal.TEN);
     }
+
+    @DisplayName("두 번째 메소드가 @Transactional(Requires_new)이 있고 예외를 던진 경우")
+    @Test
+    void createAndThrowWithTransactionalAndRequires() {
+        productProcessor.createWithChildMethodIsRequiresNewAndTransactional(1L, "상품명", BigDecimal.TEN);
+    }
 }

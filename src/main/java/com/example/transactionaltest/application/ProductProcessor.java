@@ -92,4 +92,15 @@ public class ProductProcessor {
             System.out.println("catch parent");
         }
     }
+
+    @Transactional
+    public void createWithChildMethodIsRequiresNewAndTransactional(Long id, String name, BigDecimal price) {
+        Product product = Product.of(id, name, price);
+        productRepository.save(product);
+        try {
+            orderItemProcessor.createAndThrowWithTransactionalAndRequires(1L, 1L, "주문아이템1", BigDecimal.TEN);
+        } catch (RuntimeException e) {
+            System.out.println("catch parent");
+        }
+    }
 }
