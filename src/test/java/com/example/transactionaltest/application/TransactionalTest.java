@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 
 @SpringBootTest
@@ -66,5 +67,17 @@ public class TransactionalTest {
     @Test
     void createAndThrowWithTransactionalAndRequires() {
         productProcessor.createWithChildMethodIsRequiresNewAndTransactional(1L, "상품명", BigDecimal.TEN);
+    }
+
+    @DisplayName("부모 메소드에서 CheckedException, Checked Exception은 롤백되지 않음")
+    @Test
+    void createAndParentThrowAndChild() throws IOException {
+        productProcessor.createAndParentThrowAndChild(1L, "상품명", BigDecimal.TEN);
+    }
+
+    @DisplayName("부모 메소드에서 CheckedException, rollbackFor 설정으로 CheckedException도 롤백되도록 함")
+    @Test
+    void createAndParentThrowWithRollbackForAndChild() throws IOException {
+        productProcessor.createAndParentThrowWithRollbackForAndChild(1L, "상품명", BigDecimal.TEN);
     }
 }

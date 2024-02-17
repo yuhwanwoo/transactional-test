@@ -6,6 +6,7 @@ import com.example.transactionaltest.exception.ProductException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 
 @Component
@@ -102,5 +103,21 @@ public class ProductProcessor {
         } catch (RuntimeException e) {
             System.out.println("catch parent");
         }
+    }
+
+    @Transactional
+    public void createAndParentThrowAndChild(Long id, String name, BigDecimal price) throws IOException {
+        Product product = Product.of(id, name, price);
+        productRepository.save(product);
+        orderItemProcessor.create(1L, 1L, "주문아이템1", BigDecimal.TEN);
+        throw new IOException("checked Exception");
+    }
+
+    @Transactional(rollbackFor = {IOException.class})
+    public void createAndParentThrowWithRollbackForAndChild(Long id, String name, BigDecimal price) throws IOException {
+        Product product = Product.of(id, name, price);
+        productRepository.save(product);
+        orderItemProcessor.create(1L, 1L, "주문아이템1", BigDecimal.TEN);
+        throw new IOException("checked Exception");
     }
 }
