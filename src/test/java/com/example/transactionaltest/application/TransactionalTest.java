@@ -80,4 +80,16 @@ public class TransactionalTest {
     void createAndParentThrowWithRollbackForAndChild() throws IOException {
         productProcessor.createAndParentThrowWithRollbackForAndChild(1L, "상품명", BigDecimal.TEN);
     }
+
+    @DisplayName("예외가 발생했을 때 noRollback 설정으로 commit 되도록 설정")
+    @Test
+    void createAndParentThrowWithNoRollbackAndChild() {
+        productProcessor.createAndParentThrowWithNoRollbackAndChild(1L, "상품명", BigDecimal.TEN);
+    }
+
+    @DisplayName("예상하지 못한 Exception 시에 모두 롤백 된다.")
+    @Test
+    void createAndChildWithThrowAndNotCatchException() {
+        productProcessor.createAndChildWithThrowAndNotCatchException(1L, "상품명", BigDecimal.TEN);
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.transactionaltest.domain;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,6 +15,8 @@ public class Product {
     @Id
     @GeneratedValue
     private Long id;
+
+    @Column(length = 10)
     private String name;
     private BigDecimal price;
 

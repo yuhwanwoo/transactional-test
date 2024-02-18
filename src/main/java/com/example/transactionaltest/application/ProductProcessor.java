@@ -99,7 +99,7 @@ public class ProductProcessor {
         Product product = Product.of(id, name, price);
         productRepository.save(product);
         try {
-            orderItemProcessor.createAndThrowWithTransactionalAndRequires(1L, 1L, "주문아이템1", BigDecimal.TEN);
+            orderItemProcessor.createAndThrowWithTransactionalAndRequiresNew(1L, 1L, "주문아이템1", BigDecimal.TEN);
         } catch (RuntimeException e) {
             System.out.println("catch parent");
         }
@@ -119,5 +119,20 @@ public class ProductProcessor {
         productRepository.save(product);
         orderItemProcessor.create(1L, 1L, "주문아이템1", BigDecimal.TEN);
         throw new IOException("checked Exception");
+    }
+
+    @Transactional(noRollbackFor = {ProductException.class})
+    public void createAndParentThrowWithNoRollbackAndChild(Long id, String name, BigDecimal price) {
+        Product product = Product.of(id, name, price);
+        productRepository.save(product);
+        orderItemProcessor.create(1L, 1L, "주문아이템1", BigDecimal.TEN);
+        throw new ProductException();
+    }
+
+    @Transactional
+    public void createAndChildWithThrowAndNotCatchException(Long id, String name, BigDecimal price) {
+        Product product = Product.of(id, name, price);
+        productRepository.save(product);
+        orderItemProcessor.createAndThrowWithTransactionalAndRequiresNewWithCatch(1L, 1L, "주문아이템1주문아이템1주문아이템1주문아이템1주문아이템1주문아이템1", BigDecimal.TEN);
     }
 }

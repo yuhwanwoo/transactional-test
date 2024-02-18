@@ -48,9 +48,19 @@ public class OrderItemProcessor {
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public void createAndThrowWithTransactionalAndRequires(Long id, Long quantity, String name, BigDecimal price) {
+    public void createAndThrowWithTransactionalAndRequiresNew(Long id, Long quantity, String name, BigDecimal price) {
         OrderItem orderItem = OrderItem.of(id, quantity, name, price);
         orderItemRepository.save(orderItem);
         throw new OrderItemException();
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void createAndThrowWithTransactionalAndRequiresNewWithCatch(Long id, Long quantity, String name, BigDecimal price) {
+        try {
+            OrderItem orderItem = OrderItem.of(id, quantity, name, price);
+            orderItemRepository.save(orderItem);
+        } catch (RuntimeException e) {
+            System.out.println("Runtime Exception");
+        }
     }
 }
